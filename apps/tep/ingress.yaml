@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: php-tep-ing
+  namespace: myargocd
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: "Host(`mynemo.kube.rhm`) ^&^& PathPrefix(`/tep`)"
+      kind: Rule
+      middlewares:
+        - name: tep-strip-prefix
+      services:
+        - name: php-tep-svc
+          port: 80

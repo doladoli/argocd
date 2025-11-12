@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: php-ot-ing
+  namespace: myargocd
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: "Host(`mynemo.kube.rhm`) ^&^& PathPrefix(`/ot`)"
+      kind: Rule
+      middlewares:
+        - name: ot-strip-prefix
+      services:
+        - name: php-ot-svc
+          port: 80

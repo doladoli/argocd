@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-ot-svc
+  labels:
+    app: ot
+spec:
+  selector:
+    app: ot
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP

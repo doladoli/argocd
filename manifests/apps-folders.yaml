@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps-from-folder
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: 'https://github.com/doladoli/argocd.git'
+        revision: HEAD
+        directories:
+          - path: 'apps/*'
+  template:
+    metadata:
+      name: '{{path.basename}}-app'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/doladoli/argocd.git'
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: myargocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

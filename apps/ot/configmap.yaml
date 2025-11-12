@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ot-app-config
+  namespace: myargocd
+data:
+  APP_ENV: "production"
+  APP_DEBUG: "false"
+  DB_HOST: "mysql.ot.svc.cluster.local"
+  DB_PORT: "3306"
+  DB_NAME: "ot_db"
